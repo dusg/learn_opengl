@@ -17,6 +17,8 @@ public:
     virtual bool OnInit();
 
     wxGLContext &GetGLContext(wxGLCanvas *canvas);
+
+    void InitOpenGL() const;
 };
 DECLARE_APP(MainApp)
 #endif //OPENGL_THE_APP_H

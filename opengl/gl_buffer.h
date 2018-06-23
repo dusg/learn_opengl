@@ -5,7 +5,7 @@
 #ifndef OPENGL_GL_BUFFER_H
 #define OPENGL_GL_BUFFER_H
 
-#include <wx/glcanvas.h>
+#include <glad/glad.h>
 namespace opengl
 {
     class ArrayBuffer

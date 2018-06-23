@@ -3,9 +3,10 @@ set(CMAKE_CXX_STANDARD 11)
 
 include_directories(./)
 
-include(../wxWidgetsCmakeConfig.txt)
-include(../boostCmakeConfig.txt)
+include(../wxWidgetsCmakeConfig.cmake)
+include(../boostCmakeConfig.cmake)
+include(../openglConfig.cmake)
+FILE(GLOB SRCS "*.cpp" "*.h" ${PROJECT_SOURCE_DIR}/glad/src/glad.c)
 
-FILE(GLOB SRCS "*.cpp" "*.h")
-
-add_library(opengl ${SRCS} gl_shader.h ShaderStore.cpp ShaderStore.h gl_shader_program.h)
+SET(LIBRARY_OUTPUT_PATH  ${PROJECT_BINARY_DIR}/bin)
+add_library(opengl SHARED ${SRCS} gl_shader.h ShaderStore.cpp ShaderStore.h gl_shader_program.h)

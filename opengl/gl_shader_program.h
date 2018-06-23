@@ -5,7 +5,7 @@
 #ifndef OPENGL_GL_SHADER_PROGRAM_H
 #define OPENGL_GL_SHADER_PROGRAM_H
 
-#include "wx/glcanvas.h"
+#include <glad/glad.h>
 #include "gl_shader.h"
 #include <boost/core/noncopyable.hpp>
 #include <vector>
@@ -15,16 +15,20 @@ namespace opengl
 class ShaderProgram: public boost::noncopyable
     {
     public:
-        ShaderProgram(std::vector<Shader>& shaders)
+        ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
         {
+            m_shaders = shaders;
             if (shaders.empty()) {
                 return;
             }
             m_id = glCreateProgram();
             for (auto iter = shaders.begin(); iter != shaders.end(); ++iter) {
-                glAttachShader(m_id,*iter);
+                glAttachShader(m_id,**iter);
             }
             glLinkProgram(m_id);
+            if (!IsOk()) {
+                GetInfoLog();
+            }
         }
 
         bool IsOk() {
@@ -34,15 +38,13 @@ class ShaderProgram: public boost::noncopyable
         }
 
         std::string GetInfoLog() {
-            std::string info;
             GLchar infoLog[512];
-            std::ostringstream out(info);
+            std::ostringstream out;
 
             glGetProgramInfoLog(m_id, sizeof(infoLog), nullptr, infoLog);
             out << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-            out.flush();
 
-            return info;
+            return out.str();
         }
 
         operator GLuint (){
@@ -50,6 +52,7 @@ class ShaderProgram: public boost::noncopyable
         }
     private:
         GLuint m_id;
+        std::vector<std::shared_ptr<Shader>> m_shaders;
     };
 };
 #endif //OPENGL_GL_SHADER_PROGRAM_H

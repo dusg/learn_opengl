@@ -7,7 +7,7 @@
 
 
 #include <string>
-#include <wx/glcanvas.h>
+#include <glad/glad.h>
 class ShaderStore
 {
 public:

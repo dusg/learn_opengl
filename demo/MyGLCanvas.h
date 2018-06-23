@@ -5,7 +5,7 @@
 #ifndef OPENGL_MYGLCANVAS_H
 #define OPENGL_MYGLCANVAS_H
 
-
+#include <glad/glad.h>
 #include <wx/glcanvas.h>
 
 class MyGLCanvas : public wxGLCanvas
@@ -21,6 +21,8 @@ private:
 
 
 wxDECLARE_EVENT_TABLE();
+
+    void DrawTrigle() const;
 };
 
 

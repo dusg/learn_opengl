@@ -7,7 +7,7 @@
 
 #include "gl_shader.h"
 #include "gl_shader_program.h"
-
+#include <string>
 namespace opengl
 {
     class Factory
@@ -20,6 +20,9 @@ namespace opengl
     void UseProgram(ShaderProgram& program){
         glUseProgram(program);
     }
+
+    void DrawTrigle();
+
 }
 
 

@@ -15,8 +15,8 @@
 #include <wx/artprov.h>
 #include <wx/sizer.h>
 #include <wx/panel.h>
-#include <wx/glcanvas.h>
 #include "MyGLCanvas.h"
+#include <wx/glcanvas.h>
 #include <wx/menu.h>
 #if wxVERSION_NUMBER >= 2900
 #include <wx/persist.h>

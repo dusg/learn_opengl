@@ -5,7 +5,7 @@
 #ifndef OPENGL_GL_SHADER_H
 #define OPENGL_GL_SHADER_H
 
-#include <wx/glcanvas.h>
+#include <glad/glad.h>
 #include <string>
 #include <sstream>
 #include "ShaderStore.h"
@@ -24,6 +24,9 @@ class Shader : public boost::noncopyable
 
             glShaderSource(m_id, 1, &src, NULL);
             glCompileShader(m_id);
+            if (!IsOK()) {
+                GetInfoLog();
+            }
         }
 
         virtual ~Shader() {
@@ -37,15 +40,13 @@ class Shader : public boost::noncopyable
         }
 
         std::string GetInfoLog() {
-            std::string info;
             GLchar infoLog[512];
-            std::ostringstream out(info);
+            std::ostringstream out;
 
             glGetShaderInfoLog(m_id, sizeof(infoLog), nullptr, infoLog);
             out << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
-            out.flush();
 
-            return info;
+            return out.str();
         }
 
         operator GLuint () {
