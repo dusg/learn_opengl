@@ -93,13 +93,13 @@ int main(int argc, char** argv){
 //        glBindVertexArray(VAO);
 //        glDrawArrays(GL_TRIANGLES, 0, 3);
 //        DrawTrigle();
-        // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
+        // myglfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
         // -------------------------------------------------------------------------------
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
 
-    // glfw: terminate, clearing all previously allocated GLFW resources.
+    // myglfw: terminate, clearing all previously allocated GLFW resources.
     // ------------------------------------------------------------------
     glfwTerminate();
     return 0;
@@ -122,7 +122,7 @@ void processInput(GLFWwindow *window)
         glfwSetWindowShouldClose(window, true);
 }
 
-// glfw: whenever the window size changed (by OS or user resize) this callback function executes
+// myglfw: whenever the window size changed (by OS or user resize) this callback function executes
 // ---------------------------------------------------------------------------------------------
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -148,7 +148,7 @@ void DrawTrigle() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    opengl::UseProgram(*shaderProgram);
+    //opengl::UseProgram(*shaderProgram);
 
 //    opengl::ArrayBuffer buffer;
 //    buffer.SetData(sizeof(vertices), vertices, GL_STATIC_DRAW);

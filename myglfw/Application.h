@@ -20,12 +20,14 @@ namespace glfw
     public:
         Application();
 
-        virtual int Main();
+        virtual ~Application();
+
+        virtual int Main(int argc = 0, char **argv = NULL);
 
         virtual void OnInit(){};
 
-        virtual void OnLoop(){};
-        virtual void OnSize(){};
+        virtual void OnLoop();
+        virtual void OnSize(size_t width, size_t height) {};
         virtual void OnExit(){};
 
         GLFWwindow* getMainWindow() const {
@@ -35,6 +37,7 @@ namespace glfw
 
     protected:
         void InitGlfw() const;
+        void InitGlade();
         void RunLoop();
         void processInput(GLFWwindow *window);
 

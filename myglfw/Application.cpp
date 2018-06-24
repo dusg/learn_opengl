@@ -2,18 +2,29 @@
 // Created by Du Carl on 2018/6/23.
 //
 
+#include <glad/glad.h>
 #include <iostream>
+#include <zconf.h>
 #include "Application.h"
 #define SCR_WIDTH 800
 #define SCR_HEIGHT 600
 
-int glfw::Application::Main() {
+int glfw::Application::__argc = 0;
+char** glfw::Application::__argv = NULL;
+glfw::Application* glfw::Application::__app = nullptr;
+
+int glfw::Application::Main(int argc, char **argv) {
+    this->__argc = argc;
+    this->__argv = argv;
+
     try {
         InitGlfw();
 
         InitWindow();
 
         glfwSetFramebufferSizeCallback(getMainWindow(), framebuffer_size_callback);
+
+        InitGlade();
 
         this->OnInit();
 
@@ -47,7 +58,7 @@ void glfw::Application::InitWindow() {
 }
 
 void glfw::Application::framebuffer_size_callback(GLFWwindow *window, int width, int height) {
-    TheApp()->OnSize();
+    TheApp()->OnSize(width, height);
 }
 
 glfw::Application::Application() {
@@ -65,6 +76,8 @@ void glfw::Application::RunLoop() {
 
         glfwSwapBuffers(getMainWindow());
         glfwPollEvents();
+
+        usleep(1000 * 100);
     }
 }
 
@@ -72,5 +85,21 @@ void glfw::Application::processInput(GLFWwindow *window) {
     if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, true);
         this->OnExit();
+    }
+}
+
+glfw::Application::~Application() {
+
+}
+
+void glfw::Application::OnLoop() {
+    glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+}
+
+void glfw::Application::InitGlade() {
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::__throw_runtime_error("Failed to initialize GLAD");
     }
 }

@@ -17,9 +17,9 @@ namespace opengl
         static std::shared_ptr<Shader> CreateFragmentShader(std::string source = "");
     };
 
-    void UseProgram(ShaderProgram& program){
-        glUseProgram(program);
-    }
+//    void UseProgram(ShaderProgram& program){
+//        glUseProgram(program);
+//    }
 
     void DrawTrigle();
 

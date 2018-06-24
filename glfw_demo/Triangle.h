@@ -17,7 +17,7 @@
  *
  *  @oglplus_example_uses_gl{GL_VERSION_3_0}
  */
-//#include <glad/glad.h>
+#include <glad/glad.h>
 #include <oglplus/gl.hpp>
 #include <oglplus/all.hpp>
 

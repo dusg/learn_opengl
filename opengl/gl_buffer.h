@@ -8,20 +8,25 @@
 #include <glad/glad.h>
 namespace opengl
 {
-    class ArrayBuffer
+    class ArrayBuffer : public Object
     {
     public:
-        ArrayBuffer(int m_buffer_type = GL_ARRAY_BUFFER) : m_buffer_type(m_buffer_type) {
+        ArrayBuffer(int m_buffer_type) : m_buffer_type(m_buffer_type) {
             glGenBuffers(1, &m_id);
-            glBindBuffer(GL_ARRAY_BUFFER, m_id);
         }
 
-        void SetData(size_t size, void* data, GLenum usage = GL_STATIC_DRAW){
-            glBufferData(m_buffer_type, size, data, usage);
+
+        ArrayBuffer& Bind() {
+            glBindBuffer(m_buffer_type, getid());
+            return *this;
         }
+        template <typename DataType>
+        void SetData(DataType& data, GLenum usage = GL_STATIC_DRAW){
+            glBufferData(m_buffer_type, sizeof(data), (void *)(&data), usage);
+        }
+
     private:
         int m_buffer_type;
-        GLuint m_id;
     };
 }
 #endif //OPENGL_GL_BUFFER_H

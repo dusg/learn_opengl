@@ -12,7 +12,7 @@
 
 namespace opengl
 {
-class ShaderProgram: public boost::noncopyable
+class ShaderProgram: public boost::noncopyable, public Object
     {
     public:
         ShaderProgram(std::vector<std::shared_ptr<Shader>>& shaders)
@@ -29,6 +29,31 @@ class ShaderProgram: public boost::noncopyable
             if (!IsOk()) {
                 GetInfoLog();
             }
+        }
+
+        ShaderProgram() {
+            m_id = glCreateProgram();
+        }
+
+        ShaderProgram& AttachShader(Shader& shader) {
+            glAttachShader(getid(), shader);
+
+            return *this;
+        }
+
+        ShaderProgram& Link(){
+            glLinkProgram(getid());
+            if (!IsOk()) {
+                std::__throw_runtime_error(GetInfoLog().c_str());
+            }
+
+            return *this;
+        }
+
+        ShaderProgram& Use(){
+            glUseProgram(getid());
+
+            return *this;
         }
 
         bool IsOk() {
@@ -51,7 +76,6 @@ class ShaderProgram: public boost::noncopyable
             return m_id;
         }
     private:
-        GLuint m_id;
         std::vector<std::shared_ptr<Shader>> m_shaders;
     };
 };

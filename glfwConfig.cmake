@@ -1,4 +1,7 @@
 #include_directories(/usr/local/include)
 include_directories(/usr/local/Cellar/glfw/3.2.1/include/)
+link_directories(/usr/local/Cellar/glfw/3.2.1/lib)
+include_directories(${PROJECT_SOURCE_DIR}/)
 find_library(lib libglfw.3.2.dylib)
 link_libraries(libglfw.3.2.dylib)
+add_definitions(-DGLFW_INCLUDE_NONE)
