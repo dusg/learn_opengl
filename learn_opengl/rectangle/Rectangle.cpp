@@ -64,5 +64,6 @@ void Rectangle::Reshape(GLuint width, GLuint height) {
 
 void Rectangle::Render(double) {
     //gl.GetClearner().ClearColorBuffer();
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     gl.DrawElements(DrawType ::Triangles, 6, DataType::UnsignedInt);
 }

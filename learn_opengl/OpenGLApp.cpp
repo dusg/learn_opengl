@@ -3,10 +3,13 @@
 //
 
 #include <learn_opengl/rectangle/Rectangle.h>
+#include <iostream>
 #include "OpenGLApp.h"
 
 void OpenGLApp::OnInit() {
-
+    int nrAttributes;
+    glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
+    std::cout << "Maximum nr of vertex attributes supported: " << nrAttributes << std::endl;
 }
 
 void OpenGLApp::OnLoop() {
